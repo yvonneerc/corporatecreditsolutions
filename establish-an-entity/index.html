@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Entity Setup Consultation | Burnett Consultation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#00AEEF; --blue-deep:#0077A8; --slate:#58595B;
+  --bg:#F3F6F8; --panel:#FFFFFF; --text:#26292C; --muted:#646A70; --line:#D8DFE4; --field:#FFFFFF; --seg:#EEF2F5;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191C;--panel:#1E2428;--text:#EDF1F3;--muted:#A2ABB2;--line:#343E45;--field:#181D20;--seg:#262E33;--blue-deep:#4CC7F5;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191C;--panel:#1E2428;--text:#EDF1F3;--muted:#A2ABB2;--line:#343E45;--field:#181D20;--seg:#262E33;--blue-deep:#4CC7F5;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 "Figtree",system-ui,-apple-system,"Segoe UI",sans-serif}
+.serif{font-family:"Libre Caslon Text",Georgia,"Times New Roman",serif}
+
+.top{background:var(--slate);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;right:-60px;top:-40px;width:340px;height:340px;border:2px solid rgba(255,255,255,.08);transform:rotate(18deg)}
+.top-in{max-width:780px;margin:0 auto;padding:30px 22px 44px;position:relative}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:34px}
+.brand .mark{background:#fff;border-radius:12px;padding:8px 10px;display:grid;place-items:center}
+.brand img{width:52px;height:auto;display:block}
+.brand span{font-weight:600;letter-spacing:.01em;opacity:.95}
+.top h1{margin:0;font-size:clamp(2.1rem,6.4vw,3.2rem);line-height:1.08;font-weight:700;max-width:15ch}
+.top p{margin:16px 0 0;max-width:50ch;color:#E3E6E8;font-size:1.06rem}
+.rule{height:5px;background:var(--blue)}
+
+.wrap{max-width:780px;margin:0 auto;padding:0 22px 64px}
+form{margin-top:-22px;position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:8px 26px 30px}
+@media (max-width:560px){form{padding:4px 18px 24px}}
+section{padding:24px 0 26px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+h2{font-family:"Libre Caslon Text",Georgia,serif;font-weight:700;font-size:1.4rem;margin:0 0 4px}
+.lead{margin:0 0 18px;color:var(--muted);font-size:.95rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px}
+.full{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label.f{display:block;font-weight:500;font-size:.95rem}
+label.f > input,label.f > select,label.f > textarea{display:block;margin-top:6px}
+.seg{justify-self:start}
+.req{color:var(--blue-deep)}
+input[type=text],input[type=email],input[type=tel],select{width:100%;font:inherit;color:var(--text);background:var(--field);border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;min-height:46px}
+input:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,174,239,.25)}
+input:user-invalid{border-color:#D6453D}
+
+.q{display:grid;grid-template-columns:1fr auto;gap:10px 18px;align-items:center;padding:14px 0;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:0;padding-top:4px}
+.q > span{font-weight:500}
+@media (max-width:560px){.q{grid-template-columns:1fr}}
+.seg{display:inline-flex;background:var(--seg);border-radius:999px;padding:4px;gap:4px}
+.seg label{position:relative}
+.seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.seg label span{display:block;min-width:70px;text-align:center;padding:8px 16px;border-radius:999px;font-weight:600;font-size:.94rem;color:var(--muted);cursor:pointer}
+.seg input:checked + span{background:var(--blue);color:#fff}
+.seg input:focus-visible + span{outline:3px solid var(--blue);outline-offset:2px}
+.seg.bad{box-shadow:0 0 0 2px #D6453D}
+.follow{grid-column:1/-1;display:none;border-left:3px solid var(--blue);padding:4px 0 4px 14px;font-size:.95rem}
+.follow.on{display:block}
+.follow a{color:var(--blue-deep);font-weight:600}
+.follow input{margin-top:6px}
+
+.cov{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:560px){.cov{grid-template-columns:1fr}}
+.cov label{position:relative}
+.cov input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.cov span{display:block;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-weight:500;cursor:pointer;background:var(--field)}
+.cov input:checked + span{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue);background:color-mix(in srgb,var(--blue) 10%,var(--field))}
+.cov input:focus-visible + span{outline:3px solid var(--blue);outline-offset:2px}
+
+.actions{padding-top:24px;display:grid;gap:10px;justify-items:start}
+button{font:inherit;font-weight:700;font-size:1.06rem;border:0;border-radius:10px;padding:15px 30px;background:var(--blue);color:#fff;cursor:pointer;min-height:52px}
+button:hover{background:#009AD6}
+button:focus-visible{outline:3px solid var(--slate);outline-offset:3px}
+button[disabled]{opacity:.6;cursor:progress}
+.fine{margin:0;color:var(--muted);font-size:.85rem}
+.error{margin:0;color:#D6453D;font-weight:600}
+
+.done{display:none;margin-top:-22px;position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:44px 26px;text-align:center}
+.done.on{display:block}
+.done img{width:64px}
+.done h2{font-size:1.8rem;margin:14px 0 8px}
+.done p{color:var(--muted);max-width:44ch;margin:0 auto 20px}
+.done a.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:700;padding:14px 26px;border-radius:10px}
+textarea{width:100%;font:inherit;color:var(--text);background:var(--field);border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;resize:vertical}
+textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,174,239,.25)}
+input[type=number]{width:100%;font:inherit;color:var(--text);background:var(--field);border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;min-height:46px}
+.hint{font-weight:400;color:var(--muted);font-size:.84rem}
+.glabel{display:block;font-weight:500;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative}
+.chips input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.chips span{display:block;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:500;font-size:.93rem;cursor:pointer;background:var(--field)}
+.chips input:checked + span{background:var(--blue);border-color:var(--blue);color:#fff}
+.chips input:focus-visible + span{outline:3px solid var(--blue);outline-offset:2px}
+.bad-group{box-shadow:0 0 0 2px #D6453D;border-radius:12px}
+.follow .q{padding:10px 0}
+.video{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:var(--seg);max-width:560px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-weight:500}
+.callout{margin:12px 0 0;background:color-mix(in srgb,var(--blue) 12%,var(--panel));border-radius:8px;padding:10px 12px;font-weight:500}
+.hp{position:absolute;left:-9999px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:36px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="top-in">
+    <div class="brand"><div class="mark"><img src="data:image/png;base64,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" alt=""></div><span>Burnett Consultation</span></div>
+    <h1 class="serif">Set up your business entity the right way.</h1>
+    <p>Answer a few questions so we can prepare for your free 30-minute consultation and walk in with a plan built around you.</p>
+  </div>
+</div>
+<div class="rule"></div>
+
+<div class="wrap">
+<form id="f" name="entity-setup-consultation" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+  <input type="hidden" name="form-name" value="entity-setup-consultation">
+  <input type="hidden" name="goals_list" id="goals_list">
+  <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+  <section>
+    <h2>About you</h2>
+    <p class="lead">How we'll reach you to confirm your consultation.</p>
+    <div class="grid">
+      <label class="f">First name <span class="req">*</span><input type="text" name="first_name" required autocomplete="given-name"></label>
+      <label class="f">Last name <span class="req">*</span><input type="text" name="last_name" required autocomplete="family-name"></label>
+      <label class="f">Email <span class="req">*</span><input type="email" name="email" required autocomplete="email"></label>
+      <label class="f">Phone <span class="req">*</span><input type="tel" name="phone" required autocomplete="tel"></label>
+      <label class="f">State you live in <span class="req">*</span><select name="home_state" required><option value="">Choose</option><option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option></select></label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Your business</h2>
+    <p class="lead">What you do, where you do it, and where things stand today.</p>
+    <div class="grid">
+      <label class="f">Industry <span class="req">*</span><select name="industry" required><option value="">Choose one</option><option>Construction or trades</option><option>Real estate</option><option>Trucking or transportation</option><option>Retail or e-commerce</option><option>Food or hospitality</option><option>Health or wellness</option><option>Beauty or personal care</option><option>Professional services or consulting</option><option>Financial services or insurance</option><option>Technology</option><option>Childcare or education</option><option>Cleaning or home services</option><option>Other</option></select></label>
+      <label class="f">State(s) the business operates in <span class="req">*</span><input type="text" name="operating_states" required placeholder="FL, GA"></label>
+      <label class="f full">Describe what your business does in a sentence or two <span class="req">*</span><textarea name="business_description" required rows="2"></textarea></label>
+      <div class="q full"><span>Do you have an existing entity? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="existing_entity" value="Yes" required><span>Yes</span></label><label><input type="radio" name="existing_entity" value="No"><span>No</span></label></div>
+        <div class="follow" id="fu-entity"><div class="grid" style="margin-top:4px">
+          <label class="f">Entity type <span class="req">*</span><select name="entity_type" data-req><option value="">Choose one</option><option>LLC</option><option>S corporation</option><option>C corporation</option><option>Sole proprietorship</option><option>Partnership</option><option>Nonprofit</option><option>Not sure</option></select></label>
+          <label class="f">State it was formed in <span class="req">*</span><select name="entity_state" data-req><option value="">Choose</option><option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option></select></label>
+          <label class="f">Number of owners <span class="req">*</span><input type="number" name="owners_count" min="1" data-req></label>
+          <label class="f">Ownership split <span class="req">*</span><input type="text" name="ownership_split" placeholder="100% me, or 50/50" data-req></label>
+          <div class="q full"><span>Do you have an EIN? <span class="req">*</span></span><div class="seg"><label><input type="radio" name="has_ein" value="Yes" data-req><span>Yes</span></label><label><input type="radio" name="has_ein" value="No"><span>No</span></label></div></div>
+          <div class="q full"><span>Do you have a business bank account? <span class="req">*</span></span><div class="seg"><label><input type="radio" name="has_bank_account" value="Yes" data-req><span>Yes</span></label><label><input type="radio" name="has_bank_account" value="No"><span>No</span></label></div></div>
+        </div></div></div>
+      <div class="q full"><span>Does your business currently have revenue? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="has_revenue" value="Yes" required><span>Yes</span></label><label><input type="radio" name="has_revenue" value="No"><span>No</span></label></div>
+        <div class="follow" id="fu-revenue"><label class="f">About how much per month? <span class="req">*</span><input type="text" name="revenue_monthly" inputmode="decimal" placeholder="$" data-req></label></div></div>
+      <div class="q full"><span>Do you plan to apply for business credit or loans in the next 12 months? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="funding_12mo" value="Yes" required><span>Yes</span></label><label><input type="radio" name="funding_12mo" value="No"><span>No</span></label></div></div>
+      <div class="q full"><span>Have you secured a business address for funding purposes? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="business_address" value="Yes" required><span>Yes</span></label><label><input type="radio" name="business_address" value="No"><span>No</span></label></div>
+        <div class="follow" id="fu-address">Lenders want a real business address, not a home or P.O. box. <a href="https://alliancevirtualoffices.com/landing/biz-credit-iq" target="_blank" rel="noopener">Get a business address here</a>.</div></div>
+      <div class="q full"><span>Do you plan to have W-2 employees? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="w2_employees" value="Yes" required><span>Yes</span></label><label><input type="radio" name="w2_employees" value="No"><span>No</span></label></div></div>
+      <div class="q full"><span>Do you understand the benefits of having an attorney form your entity instead of doing it yourself? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="understands_attorney_benefits" value="Yes" required><span>Yes</span></label><label><input type="radio" name="understands_attorney_benefits" value="No"><span>No</span></label></div>
+        <div class="follow" id="fu-video">
+          <p style="margin:0 0 10px">Watch this quick video before your consultation. It explains what an attorney-formed entity protects that a do-it-yourself filing can miss.</p>
+          <div class="video" id="videoBox"><div class="video-ph">Video will appear here</div></div>
+        </div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Your goals</h2>
+    <p class="lead">This tells the attorney what to focus on first.</p>
+    <div class="grid">
+      <div class="full"><span class="glabel">What do you want this entity to do for you? Choose all that apply. <span class="req">*</span></span>
+        <div class="chips" id="goals"><label><input type="checkbox" name="goals" value="Protect my personal assets"><span>Protect my personal assets</span></label><label><input type="checkbox" name="goals" value="Lower my taxes"><span>Lower my taxes</span></label><label><input type="checkbox" name="goals" value="Qualify for business credit or funding"><span>Qualify for business credit or funding</span></label><label><input type="checkbox" name="goals" value="Bring in partners or investors"><span>Bring in partners or investors</span></label><label><input type="checkbox" name="goals" value="Pass the business on to family"><span>Pass the business on to family</span></label><label><input type="checkbox" name="goals" value="Separate business and personal finances"><span>Separate business and personal finances</span></label></div></div>
+      <div class="full"><span class="glabel">How soon do you want your entity set up? <span class="req">*</span></span>
+        <div class="cov">
+          <label><input type="radio" name="timeline" value="Within 30 days" required><span>Within 30 days</span></label>
+          <label><input type="radio" name="timeline" value="1 to 3 months"><span>1 to 3 months</span></label>
+          <label><input type="radio" name="timeline" value="More than 3 months"><span>More than 3 months</span></label>
+        </div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Who's involved</h2>
+    <p class="lead">Everyone who will be on the entity or help make this decision should join the consultation.</p>
+    <div class="grid">
+      <div class="q full"><span>Is anyone else on your entity, or will anyone be, who helps make this decision? For example, a spouse or business partner. <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="decision_maker" value="Yes" required><span>Yes</span></label><label><input type="radio" name="decision_maker" value="No"><span>No</span></label></div>
+        <div class="follow" id="fu-dm">
+          <div class="grid" style="margin-top:4px">
+            <label class="f">Their name <span class="req">*</span><input type="text" name="decision_maker_name" data-req></label>
+            <label class="f">Their role <span class="req">*</span><select name="decision_maker_role" data-req><option value="">Choose one</option><option>Spouse</option><option>Business partner</option><option>Other co-owner</option><option>Other</option></select></label>
+          </div>
+          <p class="callout">They need to join the consultation too. Please pick a time that works for both of you.</p>
+        </div></div>
+      <div class="q full"><span>Do you have children between ages 7 and 22? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="children_7_22" value="Yes" required><span>Yes</span></label><label><input type="radio" name="children_7_22" value="No"><span>No</span></label></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Assets and planning</h2>
+    <p class="lead">Helps the attorney recommend the right protection and structure.</p>
+    <div class="grid">
+      <div class="q full"><span>Do you own real estate, rental properties, or other major assets you want to protect? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="major_assets" value="Yes" required><span>Yes</span></label><label><input type="radio" name="major_assets" value="No"><span>No</span></label></div>
+        <div class="follow" id="fu-assets"><label class="f">Briefly, what are they? <span class="req">*</span><input type="text" name="assets_description" placeholder="Primary home, 2 rentals, equipment" data-req></label></div></div>
+      <div class="q full"><span>Do you have a CPA or bookkeeper? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="has_cpa" value="Yes" required><span>Yes</span></label><label><input type="radio" name="has_cpa" value="No"><span>No</span></label></div></div>
+      <div class="q full"><span>Do you have a will or trust in place? <span class="req">*</span></span>
+        <div class="seg"><label><input type="radio" name="will_or_trust" value="Yes" required><span>Yes</span></label><label><input type="radio" name="will_or_trust" value="No"><span>No</span></label></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Health coverage</h2>
+    <p class="lead">Do you currently have health insurance? <span class="req">*</span></p>
+    <div class="cov">
+      <label><input type="radio" name="health_insurance" value="Employer sponsored" required><span>Yes, through an employer</span></label>
+      <label><input type="radio" name="health_insurance" value="Individual plan"><span>Yes, an individual plan</span></label>
+      <label><input type="radio" name="health_insurance" value="No coverage"><span>No coverage</span></label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Anything else</h2>
+    <div class="grid">
+      <label class="f full">Is there anything else the attorney should know before your call? <span class="req">*</span> <span class="hint">For example, an existing lawsuit, back taxes, or a partner disagreement. Write "None" if nothing comes to mind.</span><textarea name="anything_else" required rows="3"></textarea></label>
+    </div>
+  </section>
+
+  <div class="actions">
+    <p class="error" id="err" role="alert" hidden></p>
+    <button type="submit" id="btn">Schedule my consultation</button>
+    <p class="fine">Your answers stay private and are used only to prepare for your consultation.</p>
+  </div>
+</form>
+
+<div class="done" id="done" aria-live="polite">
+  <img src="data:image/png;base64,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" alt="">
+  <h2 class="serif">You're all set</h2>
+  <p>We received your answers. Pick a time for your free 30-minute consultation below.</p>
+  <a class="btn" id="bookBtn" href="#" target="_blank" rel="noopener">Choose a time</a>
+</div>
+<footer>Burnett Consultation</footer>
+</div>
+
+<script>
+(function(){
+  // Paste Scott's booking link here. Leave empty to hide the button.
+  var BOOKING_URL = 'https://go.appointmentcore.com/book/Z7rEQ7SV';
+  // Paste the attorney-vs-DIY video link here (YouTube, Vimeo, or Loom).
+  var VIDEO_URL = '';
+
+  function embedUrl(url){
+    try{var u=new URL(url)}catch(e){return ''}
+    var h=u.hostname.replace('www.','');
+    if(h==='youtu.be')return 'https://www.youtube.com/embed/'+u.pathname.slice(1);
+    if(h.indexOf('youtube.com')>-1)return 'https://www.youtube.com/embed/'+(u.searchParams.get('v')||u.pathname.split('/').pop());
+    if(h==='vimeo.com')return 'https://player.vimeo.com/video/'+u.pathname.split('/').filter(Boolean).pop();
+    if(h.indexOf('loom.com')>-1)return 'https://www.loom.com/embed/'+u.pathname.split('/').filter(Boolean).pop();
+    return url;
+  }
+  var videoLoaded=false;
+  function loadVideo(){
+    if(videoLoaded||!VIDEO_URL)return; videoLoaded=true;
+    var box=document.getElementById('videoBox');
+    box.innerHTML='<iframe src="'+embedUrl(VIDEO_URL)+'" title="Attorney-formed entity vs. doing it yourself" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+  }
+
+  var f=document.getElementById('f'), err=document.getElementById('err'), btn=document.getElementById('btn');
+  var follows={existing_entity:['fu-entity','Yes'],has_revenue:['fu-revenue','Yes'],business_address:['fu-address','No'],
+    understands_attorney_benefits:['fu-video','No'],decision_maker:['fu-dm','Yes'],major_assets:['fu-assets','Yes']};
+  f.addEventListener('change',function(e){
+    var t=e.target;
+    var g=t.closest('.seg,.cov,.chips'); if(g)g.classList.remove('bad-group');
+    var fu=follows[t.name]; if(!fu||t.type!=='radio')return;
+    var on=t.value===fu[1], box=document.getElementById(fu[0]);
+    box.classList.toggle('on',on);
+    box.querySelectorAll('[data-req]').forEach(function(i){i.required=on});
+    if(t.name==='understands_attorney_benefits'&&on)loadVideo();
+  });
+  f.addEventListener('submit',function(e){
+    e.preventDefault(); err.hidden=true;
+    var goals=Array.from(f.querySelectorAll('input[name=goals]:checked')).map(function(c){return c.value});
+    document.getElementById('goals_list').value=goals.join(', ');
+    var bad=Array.from(f.querySelectorAll('input:invalid,select:invalid,textarea:invalid'));
+    bad.forEach(function(el){var g=el.closest('.seg,.cov');if(g)g.classList.add('bad-group')});
+    var first=bad[0]||null;
+    if(!goals.length){document.getElementById('goals').classList.add('bad-group');first=first||document.querySelector('#goals input')}
+    if(first){
+      err.textContent='Please answer the highlighted questions before scheduling.'; err.hidden=false;
+      (first.closest('.q,.full,label')||first).scrollIntoView({block:'center'}); first.focus({preventScroll:true});
+      return;
+    }
+    btn.disabled=true; btn.textContent='Sending…';
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()})
+      .then(function(r){if(!r.ok)throw 0;show()})
+      .catch(function(){btn.disabled=false;btn.textContent='Schedule my consultation';err.textContent='Your answers didn\'t send. Check your connection and try again.';err.hidden=false});
+  });
+  function show(){
+    f.style.display='none';
+    var b=document.getElementById('bookBtn');
+    if(BOOKING_URL){
+      // Prefill name and email so the booking can be matched to this submission
+      var u; try{u=new URL(BOOKING_URL)}catch(x){u=null}
+      if(u){
+        var fn=f.first_name.value.trim(), ln=f.last_name.value.trim(), em=f.email.value.trim();
+        u.searchParams.set('name',(fn+' '+ln).trim()); u.searchParams.set('first_name',fn); u.searchParams.set('last_name',ln); u.searchParams.set('email',em);
+        b.href=u.toString();
+      } else { b.href=BOOKING_URL }
+    }else{b.style.display='none';document.querySelector('#done p').textContent='We received your answers and will reach out shortly to schedule your free 30-minute consultation.'}
+    var dmYes=f.querySelector('input[name=decision_maker]:checked'), dn=f.decision_maker_name.value.trim();
+    if(dmYes&&dmYes.value==='Yes'){var p=document.querySelector('#done p');p.textContent+=' Choose a time when '+(dn||'your partner')+' can join you.'}
+    var d=document.getElementById('done');d.classList.add('on');d.scrollIntoView({behavior:'smooth'});
+  }
+})();
+</script>
+</body>
+</html>
