@@ -1,2 +1,5 @@
 [build]
   publish = "."
+  # Fail the deploy if a Netlify form loses its data-netlify tag; without it,
+  # Netlify stops accepting submissions and the n8n -> GHL webhook never fires.
+  command = '''for f in bizcall-phone-setup/index.html establish-an-entity/index.html; do grep -q 'data-netlify="true"' "$f" || { echo "Netlify form tags missing in $f"; exit 1; }; done'''
