@@ -72,6 +72,9 @@ input:user-invalid,select:user-invalid{border-color:var(--coral)}
 .ck input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--teal);flex:none}
 .sub{grid-column:span 6;border-left:4px solid var(--amber);padding:4px 0 4px 16px;display:none}
 .sub.on{display:grid}
+.ck[hidden]{display:none}
+.choices.three{grid-template-columns:repeat(3,1fr)}
+@media (max-width:620px){.choices.three{grid-template-columns:1fr}}
 .sub .grid{margin-top:4px}
 .group-label{font-weight:500;font-size:.95rem;margin-bottom:8px;display:block}
 
@@ -296,12 +299,27 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
   </fieldset>
 
   <fieldset>
-    <legend><span class="n">5</span><h2>Setup call availability &amp; VA coordination</h2></legend>
-    <p class="lead">Our VA team will coordinate a setup call with you and our phone service provider. Your assigned VA will attend with you. These are proposed times; we will confirm your appointment.</p>
+    <legend><span class="n">5</span><h2>Setup call contact &amp; availability</h2></legend>
+    <p class="lead">Our VA team will coordinate a setup call with you and our Phone Provider. Your assigned VA will attend with you. These are proposed times; we will confirm your appointment.</p>
     <!-- Filled by staff through the link, e.g. ?va=Jane%20Doe&va_email=jane@example.com. Left blank, Yvonne assigns a VA after review. -->
     <input type="hidden" name="assigned_va_name" id="assigned_va_name">
     <input type="hidden" name="assigned_va_email" id="assigned_va_email">
     <div class="grid">
+      <label class="f c4"><span>Best phone number for the Phone Provider to call <span class="req">*</span></span><input type="tel" name="callback_phone" required autocomplete="tel"></label>
+      <div class="c6" role="radiogroup" aria-labelledby="txlbl">
+        <span class="group-label" id="txlbl">Can we text appointment details and reminders to this number? <span class="req">*</span></span>
+        <div class="choices three">
+          <label class="choice"><input type="radio" name="text_pref" value="Yes" required><span><b>Yes</b><small>Text the number above</small></span></label>
+          <label class="choice"><input type="radio" name="text_pref" value="Use a different number"><span><b>Use a different number</b><small>Text a different mobile number</small></span></label>
+          <label class="choice"><input type="radio" name="text_pref" value="Email only"><span><b>Email only</b><small>Don't text me</small></span></label>
+        </div>
+      </div>
+      <div class="sub" id="sub-text-phone">
+        <div class="grid">
+          <label class="f c3">Best mobile number for texts <span class="req">*</span><input type="tel" name="text_phone" id="text_phone" autocomplete="tel"></label>
+        </div>
+      </div>
+      <label class="ck c6" id="text-consent" hidden><input type="checkbox" name="text_consent" id="text_consent" value="Yes"><span>I agree that BizCall Solutions, our VA team, and the Phone Provider may text me appointment details and reminders about this setup call. These texts are about my setup only. Message and data rates may apply. Reply STOP to opt out at any time. <span class="req">*</span></span></label>
       <label class="f c6">Your time zone <span class="req">*</span> <span class="hint">All three times below are in this time zone</span>
         <select name="call_tz" id="call_tz" required>
           <option value="">Choose your time zone</option>
@@ -333,7 +351,6 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
         <label class="f">From<input type="time" name="call_option_3_start" required step="900" data-win="3"></label>
         <label class="f">To<input type="time" name="call_option_3_end" required step="900" data-win="3"></label>
       </div>
-      <label class="f c3">Best callback number <span class="req">*</span><input type="tel" name="callback_phone" required autocomplete="tel"></label>
       <label class="f c3">Best email for setup details <span class="req">*</span><input type="email" name="callback_email" required autocomplete="email"></label>
       <div class="c6">
         <span class="group-label">Before the call, please make sure:</span>
@@ -344,7 +361,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
           <li>You'll enter any PIN or payment details directly through the provider's secure process, not on this form.</li>
         </ul>
       </div>
-      <label class="ck c6"><input type="checkbox" name="contact_permission" value="Yes" required><span>BizCall Solutions, our VA team, and the phone service provider representative may call or email me about scheduling and completing this setup call. <span class="req">*</span></span></label>
+      <label class="ck c6"><input type="checkbox" name="contact_permission" value="Yes" required><span>BizCall Solutions, our VA team, and the Phone Provider representative may call or email me about scheduling and completing this setup call. <span class="req">*</span></span></label>
     </div>
   </fieldset>
 
@@ -454,6 +471,18 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
     dst.addEventListener('input',function(){dst.dataset.edited=dst.value?'1':''});
     src.addEventListener('input',function(){if(!dst.dataset.edited)dst.value=src.value});
   });
+  // Texting: ask for a separate mobile only when chosen; ask for consent whenever we'd text.
+  var txPhoneBox=document.getElementById('sub-text-phone'), txPhone=document.getElementById('text_phone');
+  var txConsentBox=document.getElementById('text-consent'), txConsent=document.getElementById('text_consent');
+  function syncText(){
+    var t=(f.querySelector('input[name=text_pref]:checked')||{}).value;
+    var other=t==='Use a different number', texting=t==='Yes'||other;
+    txPhoneBox.classList.toggle('on',other); txPhone.required=other; txPhone.disabled=!other;
+    txConsentBox.hidden=!texting; txConsent.required=texting; txConsent.disabled=!texting;
+    if(!texting)txConsent.checked=false;
+  }
+  f.querySelectorAll('input[name=text_pref]').forEach(function(r){r.addEventListener('change',syncText)});
+  syncText();
   f.querySelectorAll('[data-win]').forEach(function(x){x.addEventListener('input',checkWindows);x.addEventListener('change',checkWindows)});
   tzSel.addEventListener('change',checkWindows);
   checkWindows();
